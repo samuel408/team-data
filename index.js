@@ -4,8 +4,8 @@ const generateHtml = require('./utils/generateHtml.js');
 const Employee = require('./lib/Employee.js');
 const employees= [];
 
-const createEmployee = (name, id, email) => {
-    var newEmployee =  new Employee (name, id, email);
+const createEmployee = (role, name, id, email) => {
+    var newEmployee =  new Employee (role, name, id, email);
     employees.push(newEmployee);
     ask();
 
@@ -41,6 +41,24 @@ const ask = () =>{
 
     inquirer
   .prompt([ 
+    {
+    type: 'list',
+    name: 'role',
+    message: "What is the Employee's job title?",
+    choices: ['Manager', 'Engineer', 'Intern']
+    },{
+        type: 'input',
+        name: 'name',
+        message: "What is the Employee's name?",
+        validate: nameInput => {
+          if (nameInput) {
+            return true;
+          } else {
+            console.log("Please enter Employee's name");
+            return false;
+          }
+        }
+      },
         {
           type: 'input',
           name: 'name',
@@ -83,7 +101,7 @@ const ask = () =>{
 
     ])
     .then (answer => {
-        createEmployee(answer.name, answer.id, answer.email);
+        createEmployee( answer.role, answer.name, answer.id, answer.email);
     })
  };
  const generate = team =>{
