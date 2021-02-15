@@ -2,10 +2,36 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const generateHtml = require('./utils/generateHtml.js');
 const Employee = require('./lib/Employee.js');
-let team = [];
+var team = [];
+
 const createEmployee = (name, id, email) => {
     var newEmployee =  new Employee (name, id, email);
-    team.push(newEmployee)
+    team.push(newEmployee);
+    ask();
+
+};
+
+const ask = () =>{
+    inquirer
+    .prompt([
+        {
+        type: 'confirm',
+        name: 'moreEmployees',
+        message: 'Would you want to add more employees at this time?',
+        default: false,
+       
+      }
+      
+
+    ])
+    .then (answer => {
+        if (answer.moreEmployees == true){
+            promptUser();
+        }
+        else{
+            console.log(team);
+        }
+    })
 };
 
  const promptUser = (team) => {
@@ -56,11 +82,13 @@ const createEmployee = (name, id, email) => {
           }
 
     ])
+    .then (answer => {
+        createEmployee(answer.name, answer.id, answer.email);
+    })
 
 
-
-        createEmployee(team.nameInput, team.idInput, team.emailInput);
-
+        
+   
  };
 
 
