@@ -1,13 +1,14 @@
-const inquirer = require('inquirer');
 const fs = require('fs');
+const inquirer = require('inquirer');
 const generateHtml = require('./utils/generateHtml.js');
 const Employee = require('./lib/Employee.js');
-var team = [];
+const employees= [];
 
 const createEmployee = (name, id, email) => {
     var newEmployee =  new Employee (name, id, email);
-    team.push(newEmployee);
+    employees.push(newEmployee);
     ask();
+
 
 };
 
@@ -29,15 +30,14 @@ const ask = () =>{
             promptUser();
         }
         else{
-            console.log(team);
+            console.log(employees);
+            generate(employees);
         }
     })
 };
 
- const promptUser = (team) => {
-  if (!team){
-     team = [];
-  }
+ const promptUser = ()  => {
+    
 
     inquirer
   .prompt([ 
@@ -85,26 +85,20 @@ const ask = () =>{
     .then (answer => {
         createEmployee(answer.name, answer.id, answer.email);
     })
-
-
-        
-   
  };
+ const generate = team =>{
+const page = generateHtml(team)
+
+fs.writeFile('./dist/generatedHTML.html', page, err => {
+  if (err) {
+    console.log(err);
+    return;
+  }
+
+  console.log('read me Page created!');
 
 
+})
+};
 
  promptUser();
-//  .then(team => {
-//     const page = generateHtml(team);
-
-//     fs.writeFile('./dist/generatedHTML.hmtl', page, err => {
-//       if (err) {
-//         console.log(err);
-//         return;
-//       }
-
-//       console.log('read me Page created!');
-    
-    
-//     });
-//   });
