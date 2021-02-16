@@ -1,9 +1,36 @@
-//creates cards for each employee
+//called to get specific info
 function cards (data){
-    return`<h1> WE ARE REACHED </h1>`
+    if (data.role == 'Manager'){
+        return 'office :#'+data.office
+    }
+    else if (data.role == 'Engineer'){
+        return '<a href="https://github.com/'+data.github+'">github:'+data.github+'</a>'
+    }
+    else if (data.role == 'Intern'){
+        return 'School of Attendance: '+ data.school
+    }
 }
-
-
+//called to get the teams info
+function count (data){
+    var file = ``;
+    for (var i = 0; i < data.length; i++){
+          file = file + `<div id="" class = "col-sm">
+          <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+            <div class="card-header">
+            <h2> ${data[i].name} </h2>
+            <h4> ${data[i].role} </h4>
+          
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">ID:${data[i].id} </h5>
+              <p class="card-text">email:<a href="https://mail.google.com/mail/u/0/#inbox?compose=new"> ${data[i].email}</a> </p>
+              <p"card-text"> ${cards(data[i])}</p>
+            </div>
+          </div>
+          </div>`;
+    }
+    return file
+}
 
 
 
@@ -42,11 +69,15 @@ return `
 </header>
 
 <div  id="container" class=" bg-secondary"> 
-${cards(data)}
+<div id="row" class="row">
+
+${count(data)}
+</div>
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="./index.js"></script>
+<script src="./utils/generateHtml.js"></script>
 </body>
 </html>
 `
