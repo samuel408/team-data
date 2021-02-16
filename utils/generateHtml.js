@@ -1,9 +1,7 @@
 //creates cards for each employee
 function cards (data){
-    
+    return`<h1> WE ARE REACHED </h1>`
 }
-
-
 
 
 
@@ -44,7 +42,7 @@ return `
 </header>
 
 <div  id="container" class=" bg-secondary"> 
-<h1>This is a ${data[0].name} </h1>
+${cards(data)}
 </div>
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

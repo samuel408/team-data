@@ -116,13 +116,20 @@ const ask = () =>{
     message: "What is the Employee's job title?",
     choices: ['Engineer', 'Intern'],
 }, 
-
-    {////////////////////////
+    {
       type: 'input',
-      name: 'contribute',
-      message: 'Add guideline for contributing to your project.',
-      when: ({ roles }) => roles
+      name: 'variable',
+      message: "Enter the engineer's github or Intern's school",
+      validate: variableInput => {
+        if (variableInput) {
+          return true;
+        } else {
+          console.log("Enter the engineer's github or Intern's school");
+          return false;
+        }
+      }
     }, 
+   
       {
         type: 'input',
         name: 'name',
