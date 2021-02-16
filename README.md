@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+# team-data
+>>>>>>> 04be683d8daea46fec51e7bfd8de6226aa4e0b89
 # TEAM DATA :![](https://img.shields.io/badge/license-ISC-green)
 
    
@@ -37,9 +41,8 @@ undefined
 
 ## tests
 follow instructions given by program
-![screenshot](./team-data.jpg "front page")
+ ![screenshot](./team-data.jpg "front page")
 
- 
 ## Questions
 email:SAMUELSALDIVAR11@GMAIL.COM
 github:https://github.com/SAMUEL408
