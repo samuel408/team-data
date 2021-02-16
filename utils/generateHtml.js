@@ -4,7 +4,7 @@ function cards (data){
         return 'office :#'+data.office
     }
     else if (data.role == 'Engineer'){
-        return '<a href="https://github.com/'+data.github+'">github:'+data.github+'</a>'
+        return '<p> Github:<a href="https://github.com/'+data.github+'" target="_blank">'+data.github+'</a></p>'
     }
     else if (data.role == 'Intern'){
         return 'School of Attendance: '+ data.school
@@ -23,7 +23,7 @@ function count (data){
             </div>
             <div class="card-body">
               <h5 class="card-title">ID:${data[i].id} </h5>
-              <p class="card-text">email:<a href="https://mail.google.com/mail/u/0/#inbox?compose=new"> ${data[i].email}</a> </p>
+              <p class="card-text">email:<a href="mailto:${data[i].email} "target="_blank"> ${data[i].email}</a> </p>
               <p"card-text"> ${cards(data[i])}</p>
             </div>
           </div>
