@@ -2,16 +2,83 @@ const fs = require('fs');
 const inquirer = require('inquirer');
 const generateHtml = require('./utils/generateHtml.js');
 const Employee = require('./lib/Employee.js');
+const Manager = require('./lib/Manager.js');
 const employees= [];
 
-const createEmployee = (role, name, id, email) => {
-    var newEmployee =  new Employee (role, name, id, email);
+//when called an employee is created with the respected parameters 
+const createEmployee = (role, name, id, email,x) => {
+    var newEmployee =  new Employee (role, name, id, email,x);
+
     employees.push(newEmployee);
+    //asks user if he wants to add more people to the team
     ask();
 
 
 };
+//creates manager
+ const buildTeam = () => {
+     inquirer
+     .prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: "What is the manager's name?",
+            validate: nameInput => {
+              if (nameInput) {
+                return true;
+              } else {
+                console.log("Please enter manager's name");
+                return false;
+              }
+            }
+          },
+          {
+            type: 'input',
+            name: 'id',
+            message: "What is the manager's id?",
+            validate: id => {
+              if (id) {
+                return true;
+              } else {
+                console.log("Please enter manager's id");
+                return false;
+              }
+            }
+          },
 
+          {
+            type: 'input',
+            name: 'email',
+            message: "What is the manager's email?",
+            validate: email => {
+              if (email) {
+                return true;
+              } else {
+                console.log("Please enter manager's email");
+                return false;
+              }
+            }
+          },
+          {
+            type: 'input',
+            name: 'office',
+            message: "What is the manager's office number?",
+            validate: office => {
+              if (office) {
+                return true;
+              } else {
+                console.log("Please enter manager's office number!");
+                return false;
+              }
+            }
+          },
+     ])
+     .then (answer => {
+// calls createEmployee
+        createEmployee('Manager', answer.name,answer.id,answer.email,answer.office)
+      } )
+ };
+//creates more employees
 const ask = () =>{
     inquirer
     .prompt([
@@ -26,6 +93,7 @@ const ask = () =>{
 
     ])
     .then (answer => {
+        //if they do want more employees it runs the method that asks for the users input
         if (answer.moreEmployees == true){
             promptUser();
         }
@@ -36,17 +104,26 @@ const ask = () =>{
     })
 };
 
- const promptUser = ()  => {
-    
 
+
+ const promptUser= ()  => {
+    
     inquirer
   .prompt([ 
     {
     type: 'list',
     name: 'role',
     message: "What is the Employee's job title?",
-    choices: ['Manager', 'Engineer', 'Intern']
-    },{
+    choices: ['Engineer', 'Intern'],
+}, 
+
+    {////////////////////////
+      type: 'input',
+      name: 'contribute',
+      message: 'Add guideline for contributing to your project.',
+      when: ({ roles }) => roles
+    }, 
+      {
         type: 'input',
         name: 'name',
         message: "What is the Employee's name?",
@@ -59,6 +136,9 @@ const ask = () =>{
           }
         }
       },
+
+      
+
         {
           type: 'input',
           name: 'name',
@@ -101,7 +181,8 @@ const ask = () =>{
 
     ])
     .then (answer => {
-        createEmployee( answer.role, answer.name, answer.id, answer.email);
+        createEmployee( answer.role, answer.name, answer.id, answer.email,answer.variable);
+        
     })
  };
  const generate = team =>{
@@ -118,5 +199,5 @@ fs.writeFile('./dist/generatedHTML.html', page, err => {
 
 })
 };
-
- promptUser();
+// starts app
+buildTeam();
